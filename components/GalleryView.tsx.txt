@@ -1,0 +1,57 @@
+import React, { useState, useEffect } from 'react';
+import { GALLERY_DATA } from '../constants';
+import { GalleryItem } from '../types';
+import AnimatedCover from './AnimatedCover';
+
+const GalleryView: React.FC = () => {
+  const [items, setItems] = useState<GalleryItem[]>(() => {
+    const saved = localStorage.getItem('kameko_data');
+    return saved ? JSON.parse(saved) : GALLERY_DATA;
+  });
+  const [selected, setSelected] = useState<GalleryItem | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('kameko_data', JSON.stringify(items));
+  }, [items]);
+
+  if (selected) {
+    return (
+      <div className="min-h-screen pt-32 px-10 pb-20 animate-in fade-in duration-700">
+        <button onClick={() => setSelected(null)} className="mb-10 text-[10px] font-bold uppercase tracking-widest text-neutral-500 hover:text-white transition-colors">← Volver al archivo</button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div>
+            <h2 className="text-7xl font-black uppercase tracking-tighter mb-6">{selected.title}</h2>
+            <p className="text-neutral-400 text-lg italic leading-relaxed mb-10">{selected.description}</p>
+          </div>
+          <div className="space-y-10">
+            {selected.images.map((img, i) => (
+              <img key={i} src={img} className="w-full rounded-2xl grayscale hover:grayscale-0 transition-all duration-700" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen pt-40 px-10 pb-32">
+      <div className="flex justify-between items-end mb-20">
+        <h1 className="text-8xl font-black tracking-tighter leading-none uppercase">Archivo<br/><span className="text-pink-500">Visual</span></h1>
+        <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-[0.5em]">Cosplay & Cinematic Photography</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {items.map(item => (
+          <AnimatedCover 
+            key={item.id} 
+            image={item.coverImage} 
+            title={item.title} 
+            subtitle={item.character} 
+            onClick={() => setSelected(item)} 
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default GalleryView;

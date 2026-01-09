@@ -1,0 +1,52 @@
+
+import React, { useState } from 'react';
+
+interface Props {
+  image: string;
+  title: string;
+  subtitle: string;
+  onClick: () => void;
+}
+
+const AnimatedCover: React.FC<Props> = ({ image, title, subtitle, onClick }) => {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div 
+      className="relative group cursor-none overflow-hidden rounded-2xl bg-neutral-900 aspect-[3/4] transition-all duration-700"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onClick={onClick}
+    >
+      <img 
+        src={image} 
+        className={`w-full h-full object-cover transition-all duration-[2000ms] ${hover ? 'scale-110 opacity-40 blur-[1px]' : 'scale-100 opacity-80'}`}
+      />
+      
+      {/* Efecto de Escáner Animado */}
+      <div className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-pink-500 shadow-[0_0_15px_#ff0055] animate-scan" />
+        <div className="absolute inset-0 border border-white/10 m-4">
+          <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white" />
+          <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white" />
+        </div>
+      </div>
+
+      <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black via-transparent to-transparent">
+        <div className={`transition-all duration-500 ${hover ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-70'}`}>
+          <h3 className="text-xl font-black uppercase tracking-tighter leading-none mb-1 group-hover:text-pink-500 transition-colors">
+            {title}
+          </h3>
+          <p className="text-[9px] text-neutral-400 font-bold uppercase tracking-widest">{subtitle}</p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+        .animate-scan { animation: scan 2s infinite linear; }
+      `}</style>
+    </div>
+  );
+};
+
+export default AnimatedCover;

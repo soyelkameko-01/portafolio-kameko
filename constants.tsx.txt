@@ -1,0 +1,31 @@
+
+import { GalleryItem, ProjectItem } from './types';
+
+export const GALLERY_DATA: GalleryItem[] = [
+  { 
+    id: '1', 
+    title: 'Neon Vibe', 
+    character: 'Cyberpunk 2077', 
+    coverImage: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070', 
+    images: ['https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070'],
+    description: 'Sesión nocturna capturando la esencia distópica.'
+  },
+  { 
+    id: '2', 
+    title: 'Forest Spirit', 
+    character: 'Princess Mononoke', 
+    coverImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070', 
+    images: ['https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2070'],
+    description: 'Fotografía de exteriores con iluminación natural mística.'
+  }
+];
+
+export const PROJECTS_DATA: ProjectItem[] = [
+  {
+    id: 'p1',
+    title: 'Cinematic World',
+    description: 'Proyecto de cortometraje convertido en serie fotográfica.',
+    date: 'Diciembre 2023',
+    images: ['https://images.unsplash.com/photo-1492691523569-de812a455092?q=80&w=2070']
+  }
+];

@@ -1,0 +1,19 @@
+
+export type Section = 'galeria' | 'proyectos' | 'reserva';
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  character: string;
+  coverImage: string;
+  images: string[];
+  description: string;
+}
+
+export interface ProjectItem {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  images: string[];
+}

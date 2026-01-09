@@ -1,0 +1,42 @@
+
+import React from 'react';
+import { Section } from '../types';
+
+interface Props {
+  current: Section;
+  set: (s: Section) => void;
+}
+
+const Navbar: React.FC<Props> = ({ current, set }) => {
+  const items: { id: Section; label: string }[] = [
+    { id: 'galeria', label: 'Galería' },
+    { id: 'proyectos', label: 'Proyectos' },
+    { id: 'reserva', label: 'Reserva' }
+  ];
+
+  return (
+    <nav className="fixed top-0 left-0 w-full z-[100] px-10 py-8 flex justify-between items-center mix-blend-difference">
+      <div className="font-black text-xl tracking-tighter cursor-pointer" onClick={() => set('galeria')}>
+        KAME<span className="text-pink-500">KO</span>
+      </div>
+      <div className="flex gap-12">
+        {items.map(item => (
+          <button
+            key={item.id}
+            onClick={() => set(item.id)}
+            className={`text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative py-2 ${
+              current === item.id ? 'text-pink-500' : 'text-white/50 hover:text-white'
+            }`}
+          >
+            {item.label}
+            {current === item.id && (
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-pink-500"></span>
+            )}
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

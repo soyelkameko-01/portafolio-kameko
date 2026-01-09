@@ -1,0 +1,25 @@
+
+import React from 'react';
+import { PROJECTS_DATA } from '../constants';
+
+const ProjectsView: React.FC = () => {
+  return (
+    <div className="min-h-screen pt-40 px-10 pb-20 animate-in slide-in-from-bottom-10 duration-1000">
+      <h2 className="text-8xl font-black tracking-tighter uppercase mb-20">Proyectos<br/><span className="text-pink-500 outline-text">Editoriales</span></h2>
+      <div className="grid grid-cols-1 gap-32">
+        {PROJECTS_DATA.map(p => (
+          <div key={p.id} className="group relative overflow-hidden rounded-3xl aspect-[21/9]">
+            <img src={p.images[0]} className="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-[2000ms]" />
+            <div className="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-black to-transparent">
+              <span className="text-pink-500 text-[10px] font-bold tracking-widest uppercase mb-4">{p.date}</span>
+              <h3 className="text-5xl font-black uppercase mb-4">{p.title}</h3>
+              <p className="max-w-xl text-neutral-400">{p.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProjectsView;
