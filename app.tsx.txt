@@ -4,28 +4,53 @@ import Navbar from './components/Navbar';
 import GalleryView from './components/GalleryView';
 import ProjectsView from './components/ProjectsView';
 import BookingView from './components/BookingView';
+import Hero from './components/Hero';
 import { Section } from './types';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<Section>('galeria');
+  const [heroImg, setHeroImg] = useState('https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=2070');
+  const [heroOpacity, setHeroOpacity] = useState(0.5);
 
   return (
-    <div className="min-h-screen bg-[#050505]">
+    <div className="min-h-screen bg-[#050505] selection:bg-pink-500 selection:text-white">
       <Navbar current={active} set={setActive} />
       
-      <main className="animate-in fade-in duration-1000">
-        {active === 'galeria' && <GalleryView />}
-        {active === 'proyectos' && <ProjectsView />}
-        {active === 'reserva' && <BookingView />}
+      <main>
+        {active === 'galeria' && (
+          <>
+            <Hero 
+              imageUrl={heroImg} 
+              setImageUrl={setHeroImg} 
+              opacity={heroOpacity} 
+              setOpacity={setHeroOpacity} 
+            />
+            <div className="animate-fade-up">
+              <GalleryView />
+            </div>
+          </>
+        )}
+        
+        {active === 'proyectos' && (
+          <div className="animate-fade-up">
+            <ProjectsView />
+          </div>
+        )}
+        
+        {active === 'reserva' && (
+          <div className="animate-fade-up">
+            <BookingView />
+          </div>
+        )}
       </main>
 
-      <footer className="py-20 text-center border-t border-white/5">
-        <p className="text-[8px] font-bold text-neutral-700 uppercase tracking-[1em]">
-          © 2024 EL KAMEKO • FOTOGRAFÍA COSPLAY
+      <footer className="py-20 text-center border-t border-white/5 opacity-40">
+        <p className="text-[8px] font-bold text-neutral-400 uppercase tracking-[1em]">
+          © 2024 KAMEKO STUDIO • FOTOGRAFÍA PROFESIONAL
         </p>
       </footer>
     </div>
   );
 };
 
-export default App; 
+export default App;
